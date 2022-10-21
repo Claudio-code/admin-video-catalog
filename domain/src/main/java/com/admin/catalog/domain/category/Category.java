@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 public class Category {
+
     private final String id;
     private final String name;
     private final String description;
@@ -12,7 +13,7 @@ public class Category {
     private Instant updatedAt;
     private Instant deletedAt;
 
-    public Category(final String id,
+    private Category(final String id,
                     final String name,
                     final String description,
                     final boolean isActive,
@@ -58,4 +59,5 @@ public class Category {
     public Instant getDeletedAt() {
         return deletedAt;
     }
+
 }
