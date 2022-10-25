@@ -1,5 +1,7 @@
 package com.admin.catalog.domain;
 
+import com.admin.catalog.domain.validation.ValidationHandler;
+
 import java.util.Objects;
 
 public abstract class Entity<ID extends Identifier> {
@@ -31,5 +33,7 @@ public abstract class Entity<ID extends Identifier> {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    public abstract void validate(ValidationHandler handler);
 
 }
