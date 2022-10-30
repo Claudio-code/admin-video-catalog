@@ -4,8 +4,8 @@ public abstract class Validator {
 
     private final ValidationHandler handler;
 
-    protected Validator(final ValidationHandler ahandler) {
-        handler = ahandler;
+    protected Validator(final ValidationHandler aHandler) {
+        handler = aHandler;
     }
 
     protected ValidationHandler validationHandler() {

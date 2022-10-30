@@ -9,7 +9,7 @@ public class Category extends AggregateRoot<CategoryID> {
 
     private final String name;
     private final String description;
-    private final boolean isActive;
+    private boolean isActive;
     private final Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
@@ -55,6 +55,18 @@ public class Category extends AggregateRoot<CategoryID> {
 
     public Instant getDeletedAt() {
         return deletedAt;
+    }
+
+    public void deactivate() {
+        isActive = false;
+        deletedAt = Instant.now();
+        updatedAt = Instant.now();
+    }
+
+    public void active() {
+        deletedAt = null;
+        isActive = true;
+        updatedAt = Instant.now();
     }
 
     @Override
