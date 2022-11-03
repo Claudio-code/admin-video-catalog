@@ -33,6 +33,35 @@ public class CategoryTest {
     }
 
     @Test
+    void givenAValidCategory_whenCallUpdate_thenUpdatedCategoryFields() {
+        final var expectedName = "Movies";
+        final var expectedDescription = "Another movies";
+        final var expectedIsActive = true;
+
+        final var actualCategory = Category
+                .newCategory(expectedName, expectedDescription, expectedIsActive);
+
+        assertNotNull(actualCategory.getId().toString());
+        assertEquals(expectedName, actualCategory.getName());
+        assertEquals(expectedDescription, actualCategory.getDescription());
+        assertEquals(expectedIsActive, actualCategory.isActive());
+
+
+        final var expectedNameUpdate = "Movies";
+        final var expectedDescriptionUpdate = "Another movies";
+        final var expectedIsActiveUpdate = false;
+        actualCategory.update(expectedNameUpdate, expectedDescriptionUpdate, expectedIsActiveUpdate);
+
+        assertEquals(expectedNameUpdate, actualCategory.getName());
+        assertEquals(expectedDescriptionUpdate, actualCategory.getDescription());
+        assertEquals(expectedIsActiveUpdate, actualCategory.isActive());
+
+        actualCategory.update(expectedNameUpdate, expectedDescriptionUpdate, true);
+
+        assertTrue(actualCategory.isActive());
+    }
+
+    @Test
     void givenAValidParamsWhenCallUpdateCategoryThenInstantiateCategory() {
         final var expectedName = "Movies";
         final var expectedDescription = "Another movies";
