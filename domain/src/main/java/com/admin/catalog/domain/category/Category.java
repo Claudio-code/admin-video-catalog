@@ -58,8 +58,10 @@ public class Category extends AggregateRoot<CategoryID> {
     }
 
     public void deactivate() {
+        if (deletedAt == null) {
+            deletedAt = Instant.now();
+        }
         isActive = false;
-        deletedAt = Instant.now();
         updatedAt = Instant.now();
     }
 
