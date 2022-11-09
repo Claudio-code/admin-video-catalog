@@ -10,7 +10,8 @@ class CreateCategoryUseCaseTest {
         final var expectedDescription = "The best movies";
         final var expectedActive = true;
 
-        // final var aCommand =
+         final var aCommand = CreateCategoryCommand
+             .with(expectedName, expectedDescription, expectedActive);
 
     }
 
