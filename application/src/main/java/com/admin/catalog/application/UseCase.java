@@ -1,7 +1,7 @@
 package com.admin.catalog.application;
 
-import com.admin.catalog.domain.category.Category;
+public abstract class UseCase<IN, OUT> {
+    
+    public abstract OUT execute(IN aIn);
 
-public class UseCase {
-    private Category category;
 }
