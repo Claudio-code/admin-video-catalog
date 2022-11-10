@@ -20,14 +20,12 @@ public class DefaultCreateCategoryUseCase extends CreateCategoryUseCase {
 
     @Override
     public Either<Notification, CreateCategoryOutput> execute(CreateCategoryCommand aIn) {
-        final var aName = aIn.name();
-        final var aDescription = aIn.description();
-        final var isActive = aIn.isActive();
-
         final var notification = Notification.create();
-        final var aCategory = Category.newCategory(aName, aDescription, isActive);
+        final var aCategory = Category.newCategory(
+            aIn.name(),
+            aIn.description(),
+            aIn.isActive());
         aCategory.validate(notification);
-
         return notification.hasError() ? Left(notification) : create(aCategory);
     }
 
