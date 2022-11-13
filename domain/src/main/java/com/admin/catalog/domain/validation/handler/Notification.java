@@ -3,6 +3,7 @@ package com.admin.catalog.domain.validation.handler;
 import com.admin.catalog.domain.exceptions.DomainException;
 import com.admin.catalog.domain.validation.Error;
 import com.admin.catalog.domain.validation.ValidationHandler;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class Notification implements ValidationHandler {
 
     private final List<Error> errors;
