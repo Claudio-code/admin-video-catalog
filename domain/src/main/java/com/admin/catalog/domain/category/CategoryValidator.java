@@ -18,6 +18,7 @@ public class CategoryValidator extends Validator {
     @Override
     public void validate() {
         checkNameConstraints();
+        checkDefaultDates();
     }
 
     private void checkNameConstraints() {
@@ -35,6 +36,17 @@ public class CategoryValidator extends Validator {
         final var length = name.trim().length();
         if (length > NAME_MAX_LENGTH || length < NAME_MIN_LENGTH) {
             validationHandler().append(new Error("'name' should be between 3 and 255 characters."));
+        }
+    }
+
+    private void checkDefaultDates() {
+        if (category.getCreatedAt() == null) {
+            validationHandler().append(new Error("'createdAt' should not be null"));
+            return;
+        }
+
+        if (category.getUpdatedAt() == null) {
+            validationHandler().append(new Error("'updatedAt' should not be null"));
         }
     }
 

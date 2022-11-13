@@ -24,6 +24,11 @@ public class Category extends AggregateRoot<CategoryID> {
         this.description = description;
         this.isActive = isActive;
         this.createdAt = createdAt;
+        if (isActive) {
+            active();
+        } else {
+            deactivate();
+        }
     }
 
     public static Category newCategory(final String name,
