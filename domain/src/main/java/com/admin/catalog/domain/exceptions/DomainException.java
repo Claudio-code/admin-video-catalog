@@ -1,9 +1,11 @@
 package com.admin.catalog.domain.exceptions;
 
 import com.admin.catalog.domain.validation.Error;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class DomainException extends NoStacktraceException {
 
     protected final List<Error> errors;
@@ -21,7 +23,4 @@ public class DomainException extends NoStacktraceException {
         return new DomainException("", anErrors);
     }
 
-    public List<Error> getErrors() {
-        return errors;
-    }
 }

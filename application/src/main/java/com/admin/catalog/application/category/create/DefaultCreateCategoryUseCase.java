@@ -4,19 +4,15 @@ import com.admin.catalog.domain.category.Category;
 import com.admin.catalog.domain.category.CategoryGateway;
 import com.admin.catalog.domain.validation.handler.Notification;
 import io.vavr.control.Either;
-
-import java.util.Objects;
+import lombok.RequiredArgsConstructor;
 
 import static io.vavr.API.Left;
 import static io.vavr.API.Try;
 
+@RequiredArgsConstructor
 public class DefaultCreateCategoryUseCase extends CreateCategoryUseCase {
 
     private final CategoryGateway categoryGateway;
-
-    public DefaultCreateCategoryUseCase(final CategoryGateway categoryGateway) {
-        this.categoryGateway = Objects.requireNonNull(categoryGateway);
-    }
 
     @Override
     public Either<Notification, CreateCategoryOutput> execute(CreateCategoryCommand aIn) {

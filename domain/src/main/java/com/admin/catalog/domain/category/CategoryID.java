@@ -1,16 +1,15 @@
 package com.admin.catalog.domain.category;
 
 import com.admin.catalog.domain.Identifier;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class CategoryID extends Identifier {
 
     private final String value;
-
-    private CategoryID(String value) {
-        this.value = value;
-    }
 
     @Override
     public String toString() {

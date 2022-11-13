@@ -3,17 +3,17 @@ package com.admin.catalog.domain.validation.handler;
 import com.admin.catalog.domain.exceptions.DomainException;
 import com.admin.catalog.domain.validation.Error;
 import com.admin.catalog.domain.validation.ValidationHandler;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@RequiredArgsConstructor
 public class Notification implements ValidationHandler {
 
     private final List<Error> errors;
-
-    public Notification(final List<Error> errors) {
-        this.errors = errors;
-    }
 
     public static Notification create() {
         return new Notification(new ArrayList<>());
@@ -49,11 +49,6 @@ public class Notification implements ValidationHandler {
             errors.add(new Error(throwable.getMessage()));
         }
         return null;
-    }
-
-    @Override
-    public List<Error> getErrors() {
-        return errors;
     }
 
 }
