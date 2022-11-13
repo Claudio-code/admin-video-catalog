@@ -1,21 +1,16 @@
 package com.admin.catalog.domain;
 
 import com.admin.catalog.domain.validation.ValidationHandler;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Objects;
 
+@AllArgsConstructor
+@Getter
 public abstract class Entity<ID extends Identifier> {
 
     protected final ID id;
-
-    protected Entity(ID aId) {
-        Objects.requireNonNull(aId, "'id' should not be null");
-        id = aId;
-    }
-
-    public ID getId() {
-        return id;
-    }
 
     @Override
     public boolean equals(Object o) {

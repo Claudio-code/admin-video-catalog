@@ -16,26 +16,15 @@ public class Category extends AggregateRoot<CategoryID> {
     private Instant updatedAt;
     private Instant deletedAt;
 
-    private Category(final CategoryID id,
-                    final String name,
-                    final String description,
-                    final boolean isActive,
-                    final Instant createdAt) {
+    private Category(final CategoryID id, final String name, final String description, final boolean isActive, final Instant createdAt) {
         super(id);
         this.name = name;
         this.description = description;
-        this.isActive = isActive;
         this.createdAt = createdAt;
-        if (isActive) {
-            active();
-        } else {
-            deactivate();
-        }
+        changeStatus(isActive);
     }
 
-    public static Category newCategory(final String name,
-                                       final String description,
-                                       final boolean isActive) {
+    public static Category newCategory(final String name, final String description, final boolean isActive) {
         final var uuid = CategoryID.unique();
         return new Category(uuid, name, description, isActive, Instant.now());
     }
@@ -43,6 +32,15 @@ public class Category extends AggregateRoot<CategoryID> {
     public void update(final String aName, final String aDescription, final boolean aIsActive) {
         name = aName;
         description = aDescription;
+        if (aIsActive) {
+            active();
+            return;
+        }
+        deactivate();
+    }
+
+    private void changeStatus(final boolean aIsActive) {
+        this.isActive = aIsActive;
         if (aIsActive) {
             active();
             return;

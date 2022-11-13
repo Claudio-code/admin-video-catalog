@@ -2,11 +2,13 @@ package com.admin.catalog.domain.category;
 
 import com.admin.catalog.domain.Identifier;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public class CategoryID extends Identifier {
 
     private final String value;
@@ -19,11 +21,6 @@ public class CategoryID extends Identifier {
     public static CategoryID unique() {
         final var uuid = UUID.randomUUID();
         return from(uuid);
-    }
-
-    @Override
-    public String getValue() {
-        return value;
     }
 
     public static CategoryID from(final String anId) {

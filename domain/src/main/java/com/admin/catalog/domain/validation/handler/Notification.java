@@ -10,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public class Notification implements ValidationHandler {
 
     private final List<Error> errors;
