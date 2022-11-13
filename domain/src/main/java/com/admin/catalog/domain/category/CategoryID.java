@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.UUID;
+import java.util.Objects;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
@@ -13,22 +13,30 @@ public class CategoryID extends Identifier {
 
     private final String value;
 
-    @Override
-    public String toString() {
-        return value;
-    }
-
     public static CategoryID unique() {
-        final var uuid = UUID.randomUUID();
-        return from(uuid);
+        return CategoryID.from(uuid());
     }
 
     public static CategoryID from(final String anId) {
-        return new CategoryID(anId.toLowerCase());
+        return new CategoryID(anId);
     }
 
-    public static CategoryID from(final UUID anID) {
-        return from(anID.toString());
+    @Override
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final CategoryID that = (CategoryID) o;
+        return getValue().equals(that.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getValue());
     }
 
 }

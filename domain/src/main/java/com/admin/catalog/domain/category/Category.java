@@ -29,14 +29,33 @@ public class Category extends AggregateRoot<CategoryID> {
         return new Category(uuid, name, description, isActive, Instant.now());
     }
 
-    public void update(final String aName, final String aDescription, final boolean aIsActive) {
+    public static Category with(final CategoryID id,
+                                final String name,
+                                final String description,
+                                final boolean isActive,
+                                final Instant createdAt) {
+        return new Category(id, name, description, isActive, createdAt);
+    }
+
+    public static Category with(final Category category) {
+        return with(
+            category.getId(),
+            category.getName(),
+            category.getDescription(),
+            category.isActive(),
+            category.getCreatedAt()
+        );
+    }
+
+    public Category update(final String aName, final String aDescription, final boolean aIsActive) {
         name = aName;
         description = aDescription;
         if (aIsActive) {
             active();
-            return;
+            return this;
         }
         deactivate();
+        return this;
     }
 
     private void changeStatus(final boolean aIsActive) {
