@@ -13,14 +13,14 @@ public abstract class Entity<ID extends Identifier> {
     protected final ID id;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Entity<?> entity = (Entity<?>) o;
+        Entity<?> entity = (Entity<?>) object;
         return getId().equals(entity.getId());
     }
 

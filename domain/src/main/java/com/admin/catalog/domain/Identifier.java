@@ -7,7 +7,10 @@ public abstract class Identifier {
     public abstract String getValue();
 
     protected static String uuid() {
-        return UUID.randomUUID().toString().toLowerCase().replace("-", "");
+        return UUID.randomUUID()
+                .toString()
+                .toLowerCase()
+                .replace("-", "");
     }
 
 }
