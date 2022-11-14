@@ -13,9 +13,12 @@ import java.util.function.Supplier;
 
 import static io.vavr.API.Left;
 import static io.vavr.API.Try;
+
 @RequiredArgsConstructor
 public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase {
+
     private final CategoryGateway categoryGateway;
+
     @Override
     public Either<Notification, UpdateCategoryOutput> execute(final UpdateCategoryCommand aCommand) {
         final var anId = CategoryID.from(aCommand.id());
