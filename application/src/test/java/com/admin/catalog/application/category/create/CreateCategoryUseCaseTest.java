@@ -1,13 +1,13 @@
 package com.admin.catalog.application.category.create;
 
+import com.admin.catalog.application.UseCaseTest;
 import com.admin.catalog.domain.category.CategoryGateway;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,14 +18,18 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-class CreateCategoryUseCaseTest {
+class CreateCategoryUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     DefaultCreateCategoryUseCase useCase;
 
     @Mock
     CategoryGateway categoryGateway;
+
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(categoryGateway);
+    }
 
     @Test
     void givenAValidCommand_whenCallsCreateCategory_shouldReturnCategoryId() {
