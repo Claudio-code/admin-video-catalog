@@ -142,13 +142,13 @@ class UpdateCategoryUseCaseTest extends UseCaseTest {
         assertEquals(expectedErrorMessage, notification.firstOrError().message());
         verify(categoryGateway, times(1)).findById(eq(expectedId));
         verify(categoryGateway, times(1)).update(argThat(aUpdatedCategory ->
-        Objects.equals(expectedName, aUpdatedCategory.getName())
-            && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
-            && Objects.equals(expectedActive, aUpdatedCategory.isActive())
-            && Objects.equals(expectedId, aUpdatedCategory.getId())
-            && Objects.equals(categoryCreated.getCreatedAt(), aUpdatedCategory.getCreatedAt())
-            && categoryCreated.getUpdatedAt().isBefore(aUpdatedCategory.getUpdatedAt())
-            && Objects.isNull(aUpdatedCategory.getDeletedAt())));
+            Objects.equals(expectedName, aUpdatedCategory.getName())
+                && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
+                && Objects.equals(expectedActive, aUpdatedCategory.isActive())
+                && Objects.equals(expectedId, aUpdatedCategory.getId())
+                && Objects.equals(categoryCreated.getCreatedAt(), aUpdatedCategory.getCreatedAt())
+                && categoryCreated.getUpdatedAt().isBefore(aUpdatedCategory.getUpdatedAt())
+                && Objects.isNull(aUpdatedCategory.getDeletedAt())));
     }
 
     @Test
