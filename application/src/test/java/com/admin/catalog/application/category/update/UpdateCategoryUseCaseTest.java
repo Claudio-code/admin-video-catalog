@@ -122,7 +122,7 @@ class UpdateCategoryUseCaseTest extends UseCaseTest {
     }
 
     @Test
-    void givenAValidCommand_whengatewayThrowsRandomException_shouldReturnAException() {
+    void givenAValidCommand_whenGatewayThrowsRandomException_shouldReturnAException() {
         final var categoryCreated = Category.newCategory("Movies22", null, true);
         final var expectedName = "Movies";
         final var expectedDescription = "The best movies";
