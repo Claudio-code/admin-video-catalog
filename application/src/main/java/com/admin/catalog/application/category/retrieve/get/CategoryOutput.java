@@ -5,7 +5,7 @@ import com.admin.catalog.domain.category.CategoryID;
 
 import java.time.Instant;
 
-public record CategoryOutput(CategoryID categoryID,
+public record CategoryOutput(CategoryID id,
                              String name,
                              String description,
                              boolean isActive,
