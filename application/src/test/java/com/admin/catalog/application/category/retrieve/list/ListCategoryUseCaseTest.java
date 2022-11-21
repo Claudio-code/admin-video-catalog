@@ -28,7 +28,6 @@ class ListCategoryUseCaseTest extends UseCaseTest {
         return List.of(categoryGateway);
     }
 
-
     @Test
     void givenAValidQuery_whenCallsListCategories_thenShouldReturnCategories() {
         final var expectedCategoryOne = Category.newCategory("My category", null, true);
