@@ -1,0 +1,10 @@
+server:
+    port: 8080
+    compression:
+        enabled: true # Whether response compression is enabled.
+        mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json # Comma-separated list of MIME types that should be compressed.
+        min-response-size: 1024 # Minimum "Content-Length" value that is required for compression to be performed.
+    undertow:
+      threads:
+          worker: 64
+          io: 4

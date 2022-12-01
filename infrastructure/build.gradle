@@ -7,6 +7,10 @@ plugins {
 group 'com.admin.catalog.infrastructure'
 version '0.0.1-SNAPSHOT'
 
+bootJar {
+    archiveName 'application.jar'
+    destinationDirectory.set(file("${rootProject.buildDir}/libs"))
+}
 
 configurations {
 	compileOnly {
@@ -21,7 +25,11 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
-	compileOnly 'org.projectlombok:lombok'
+    implementation ('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    implementation'org.springframework.boot:spring-boot-starter-undertow'
+    compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
