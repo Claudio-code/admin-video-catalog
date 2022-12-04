@@ -1,7 +1,5 @@
 FROM amazoncorretto:17-alpine-jdk as builder
 
-ENV SPRING_PROFILES_ACTIVE=prod
-
 WORKDIR /builder
 
 COPY settings.gradle .
