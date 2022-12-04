@@ -10,3 +10,9 @@ server:
         threads:
             worker: 10
             io: 2
+
+spring:
+    jpa:
+        show-sql: false
+        hibernate:
+            ddl-auto: none
