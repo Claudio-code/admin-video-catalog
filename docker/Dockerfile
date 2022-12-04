@@ -1,5 +1,6 @@
-
 FROM amazoncorretto:17-alpine-jdk as builder
+
+ENV SPRING_PROFILES_ACTIVE=prod
 
 WORKDIR /builder
 
@@ -13,6 +14,8 @@ COPY gradle gradle
 RUN ./gradlew build -x test --no-daemon
 
 FROM amazoncorretto:17-alpine
+
+ENV SPRING_PROFILES_ACTIVE=prod
 
 COPY --from=builder /builder/build/libs/application.jar /app.jar
 
