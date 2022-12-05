@@ -9,6 +9,8 @@ import static javax.validation.Validation.buildDefaultValidatorFactory;
 
 public abstract class ModelValidator<T> {
 
+    private final static String MESSAGE_SEPARATOR = ", ";
+
     private final Validator validator;
 
     public ModelValidator() {
@@ -20,7 +22,9 @@ public abstract class ModelValidator<T> {
          final var allErrorMessageOptional = validator.validate(model, modelType)
              .stream()
              .map(ConstraintViolation::getMessage)
-             .reduce((aggregate, errorMessage) -> aggregate + ", " + errorMessage);
+             .reduce((aggregate, errorMessage) -> aggregate
+                 .concat(MESSAGE_SEPARATOR)
+                 .concat(errorMessage));
 
          if (allErrorMessageOptional.isEmpty()) {
              return;

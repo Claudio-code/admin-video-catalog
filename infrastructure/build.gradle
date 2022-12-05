@@ -1,6 +1,16 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.flywaydb:flyway-mysql:9.8.3'
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.7.4'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+    id 'org.flywaydb.flyway' version '9.8.3'
     id 'java'
 }
 
@@ -37,9 +47,16 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 
-    testImplementation 'org.testcontainers:mysql:1.17.2'
+    testImplementation 'org.flywaydb:flyway-core'
+    testImplementation 'org.testcontainers:mysql:1.17.6'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'com.h2database:h2'
+}
+
+flyway {
+    url = System.getenv('FLYWAY_DB') ?: 'jdbc:mysql://localhost:3306/catalog'
+    user = System.getenv('FLYWAY_USER') ?: 'root'
+    password = System.getenv('FLYWAY_PASS') ?: 'root'
 }
 
 test {
