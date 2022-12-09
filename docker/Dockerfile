@@ -2,6 +2,10 @@ FROM amazoncorretto:17-alpine-jdk as builder
 
 WORKDIR /builder
 
+ENV FLYWAY_DB=catalog
+ENV FLYWAY_USER=root
+ENV FLYWAY_PASS=root
+
 COPY settings.gradle .
 COPY application application
 COPY domain domain
