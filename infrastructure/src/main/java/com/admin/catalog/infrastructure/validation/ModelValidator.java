@@ -9,7 +9,7 @@ import static javax.validation.Validation.buildDefaultValidatorFactory;
 
 public abstract class ModelValidator<T> {
 
-    private final static String MESSAGE_SEPARATOR = ", ";
+    private static final String MESSAGE_SEPARATOR = ", ";
 
     private final Validator validator;
 
