@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import java.time.Instant;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
