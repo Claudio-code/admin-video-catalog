@@ -18,8 +18,8 @@ group 'com.admin.catalog.infrastructure'
 version '0.0.1-SNAPSHOT'
 
 bootJar {
-    archiveName 'application.jar'
-    destinationDirectory.set(file("${rootProject.buildDir}/libs"))
+    archiveFileName = 'application.jar'
+    getDestinationDirectory().set(file("${rootProject.buildDir}/libs"))
 }
 
 configurations {
