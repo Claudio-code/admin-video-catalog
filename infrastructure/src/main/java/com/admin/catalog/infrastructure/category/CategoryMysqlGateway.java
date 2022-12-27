@@ -51,13 +51,20 @@ public class CategoryMysqlGateway implements CategoryGateway {
 
     @Override
     public Pagination<Category> findAll(SearchQuery aQuery) {
-        final var sort = Sort.by(Sort.Direction.fromString(aQuery.direction()), aQuery.sort());
-        final var page = PageRequest.of(aQuery.page(), aQuery.perPage(), sort);
-        final var specifications = Optional.of(aQuery.terms())
-            .filter(String::isBlank)
+        final var page = PageRequest.of(
+            aQuery.page(),
+            aQuery.perPage(),
+            Sort.by(Sort.Direction.fromString(aQuery.direction()), aQuery.sort())
+        );
+
+        final var specifications = Optional.ofNullable(aQuery.terms())
+            .filter(str -> !str.isBlank())
             .map(this::assempleSpecification)
+            .map(Specification::where)
             .orElse(null);
-        final var pageResult = categoryRepository.findAll(Specification.where(specifications), page);
+
+        final var pageResult = categoryRepository.findAll(specifications, page);
+
         return new Pagination<>(
             pageResult.getNumber(),
             pageResult.getSize(),
@@ -85,6 +92,11 @@ public class CategoryMysqlGateway implements CategoryGateway {
         final Specification<CategoryJpaEntity> nameLike = SpecificationUtils.like("name", str);
         final Specification<CategoryJpaEntity> descriptionLike = SpecificationUtils.like("description", str);
         return nameLike.or(descriptionLike);
+    }
+
+    private static String like(final String term) {
+        if (term == null) return null;
+        return "%" + term + "%";
     }
 
 }
