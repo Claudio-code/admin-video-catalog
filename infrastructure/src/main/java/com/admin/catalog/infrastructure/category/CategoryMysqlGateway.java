@@ -25,12 +25,12 @@ public class CategoryMysqlGateway implements CategoryGateway {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Category create(Category aCategory) {
+    public Category create(final Category aCategory) {
         return save(aCategory);
     }
 
     @Override
-    public void deletedById(CategoryID anId) {
+    public void deletedById(final CategoryID anId) {
         final var anIdValue = anId.getValue();
         if (!categoryRepository.existsById(anIdValue)) {
             return;
@@ -39,18 +39,18 @@ public class CategoryMysqlGateway implements CategoryGateway {
     }
 
     @Override
-    public Optional<Category> findById(CategoryID anId) {
+    public Optional<Category> findById(final CategoryID anId) {
         return categoryRepository.findById(anId.getValue())
             .map(CategoryJpaEntity::toAggregate);
     }
 
     @Override
-    public Category update(Category aCategory) {
+    public Category update(final Category aCategory) {
         return save(aCategory);
     }
 
     @Override
-    public Pagination<Category> findAll(SearchQuery aQuery) {
+    public Pagination<Category> findAll(final SearchQuery aQuery) {
         final var page = PageRequest.of(
             aQuery.page(),
             aQuery.perPage(),
