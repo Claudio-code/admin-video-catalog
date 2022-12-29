@@ -287,4 +287,29 @@ public class CategoryMySQLGatewayTest {
         assertEquals(documentaries.getId(), actualResult.items().get(0).getId());
     }
 
+    @Test
+    public void givenPrePersistedCategories_whenCallsExistsByIds_shouldReturnIds() {
+        final var movies = Category.newCategory("Movies", null, true);
+        final var series = Category.newCategory("Series", null, true);
+        final var documentaries = Category.newCategory("Documentaries", null, true);
+
+        assertEquals(0, categoryRepository.count());
+
+        categoryRepository.saveAllAndFlush(List.of(
+            CategoryJpaEntity.from(series),
+            CategoryJpaEntity.from(movies),
+            CategoryJpaEntity.from(documentaries)
+        ));
+
+        assertEquals(3, categoryRepository.count());
+
+        final var expectedIds = List.of(movies.getId(), series.getId());
+        final var ids = List.of(movies.getId(), series.getId(), CategoryID.from("123"));
+
+        final var actualResults = categoryMysqlGateway.existsByIds(ids);
+
+        assertEquals(expectedIds.size(), actualResults.size());
+        assertTrue(expectedIds.containsAll(actualResults));
+    }
+
 }
