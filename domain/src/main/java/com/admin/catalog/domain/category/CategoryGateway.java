@@ -1,5 +1,6 @@
 package com.admin.catalog.domain.category;
 
+import com.admin.catalog.domain.exceptions.ValidatorException;
 import com.admin.catalog.domain.pagination.Pagination;
 import com.admin.catalog.domain.pagination.SearchQuery;
 
@@ -8,13 +9,13 @@ import java.util.Optional;
 
 public interface CategoryGateway {
 
-    Category create(Category aCategory);
+    Category create(Category aCategory) throws ValidatorException;
 
     void deletedById(CategoryID anId);
 
     Optional<Category> findById(CategoryID anId);
 
-    Category update(Category aCategory);
+    Category update(Category aCategory) throws ValidatorException;
 
     Pagination<Category> findAll(SearchQuery aQuery);
 

@@ -3,9 +3,11 @@ package com.admin.catalog.infrastructure.category;
 import com.admin.catalog.domain.category.Category;
 import com.admin.catalog.domain.category.CategoryGateway;
 import com.admin.catalog.domain.category.CategoryID;
+import com.admin.catalog.domain.exceptions.ValidatorException;
 import com.admin.catalog.domain.pagination.Pagination;
 import com.admin.catalog.domain.pagination.SearchQuery;
 import com.admin.catalog.infrastructure.category.persistence.CategoryJpaEntity;
+import com.admin.catalog.infrastructure.category.persistence.CategoryModelValidator;
 import com.admin.catalog.infrastructure.category.persistence.CategoryRepository;
 import com.admin.catalog.infrastructure.util.SpecificationUtils;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +25,10 @@ import java.util.stream.StreamSupport;
 public class CategoryMysqlGateway implements CategoryGateway {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryModelValidator validator;
 
     @Override
-    public Category create(final Category aCategory) {
+    public Category create(final Category aCategory) throws ValidatorException {
         return save(aCategory);
     }
 
@@ -45,7 +48,7 @@ public class CategoryMysqlGateway implements CategoryGateway {
     }
 
     @Override
-    public Category update(final Category aCategory) {
+    public Category update(final Category aCategory) throws ValidatorException {
         return save(aCategory);
     }
 
@@ -84,19 +87,16 @@ public class CategoryMysqlGateway implements CategoryGateway {
             .toList();
     }
 
-    private Category save(final Category aCategory) {
-        return categoryRepository.save(CategoryJpaEntity.from(aCategory)).toAggregate();
+    private Category save(final Category aCategory) throws ValidatorException {
+        final var categoryToSave = CategoryJpaEntity.from(aCategory);
+        validator.validate(categoryToSave, CategoryJpaEntity.class);
+        return categoryRepository.save(categoryToSave).toAggregate();
     }
 
     private Specification<CategoryJpaEntity> assempleSpecification(final String str) {
         final Specification<CategoryJpaEntity> nameLike = SpecificationUtils.like("name", str);
         final Specification<CategoryJpaEntity> descriptionLike = SpecificationUtils.like("description", str);
         return nameLike.or(descriptionLike);
-    }
-
-    private static String like(final String term) {
-        if (term == null) return null;
-        return "%" + term + "%";
     }
 
 }

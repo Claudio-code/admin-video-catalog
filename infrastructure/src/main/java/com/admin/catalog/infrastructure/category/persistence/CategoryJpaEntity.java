@@ -12,7 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -26,14 +26,17 @@ public class CategoryJpaEntity {
     @Id
     @Column(name = "id", nullable = false)
     private String id;
+    @NotNull(message = "name {javax.validation.constraints.NotNull.message}")
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "description", length = 4000)
     private String description;
     @Column(name = "active", nullable = false)
     private boolean active;
+    @NotNull(message = "createdAt {javax.validation.constraints.NotNull.message}")
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant createdAt;
+    @NotNull(message = "updatedAt {javax.validation.constraints.NotNull.message}")
     @Column(name = "updated_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant updatedAt;
     @Column(name = "deleted_at", columnDefinition = "DATETIME(6)")

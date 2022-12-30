@@ -2,12 +2,15 @@ package com.admin.catalog.infrastructure.category;
 
 import com.admin.catalog.domain.category.Category;
 import com.admin.catalog.domain.category.CategoryID;
+import com.admin.catalog.domain.exceptions.ValidatorException;
 import com.admin.catalog.domain.pagination.SearchQuery;
 import com.admin.catalog.infrastructure.MySQLGatewayTest;
 import com.admin.catalog.infrastructure.category.persistence.CategoryJpaEntity;
+import com.admin.catalog.infrastructure.category.persistence.CategoryModelValidator;
 import com.admin.catalog.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 
@@ -24,8 +27,11 @@ public class CategoryMySQLGatewayTest {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @MockBean
+    private CategoryModelValidator validator;
+
     @Test
-    public void givenAValidCategory_whenCallsCreate_shouldReturnANewCategory() {
+    public void givenAValidCategory_whenCallsCreate_shouldReturnANewCategory() throws ValidatorException {
         final var expectedName = "Movies";
         final var expectedDescription = "The category";
         final var expectedIsActive = true;
@@ -57,7 +63,7 @@ public class CategoryMySQLGatewayTest {
     }
 
     @Test
-    public void givenAValidCategory_whenCallUpdate_shouldReturnCategoryUpdated() {
+    public void givenAValidCategory_whenCallUpdate_shouldReturnCategoryUpdated() throws ValidatorException {
         final var expectedName = "another movie";
         final var expectedActualName = "My movie";
         final var expectedDescription = "another end of year";

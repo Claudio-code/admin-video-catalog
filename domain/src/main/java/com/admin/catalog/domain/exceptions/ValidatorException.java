@@ -1,4 +1,4 @@
-package com.admin.catalog.infrastructure.exceptions;
+package com.admin.catalog.domain.exceptions;
 
 public class ValidatorException extends Exception {
 
