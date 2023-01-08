@@ -7,11 +7,14 @@ import com.admin.catalog.domain.exceptions.ValidatorException;
 import com.admin.catalog.infrastructure.IntegrationTest;
 import com.admin.catalog.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.doThrow;
 
 @IntegrationTest
 public class CreateCategoryUseCaseIT {
@@ -22,7 +25,7 @@ public class CreateCategoryUseCaseIT {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @Autowired
+    @SpyBean
     private CategoryGateway categoryGateway;
 
     @Test
@@ -52,7 +55,7 @@ public class CreateCategoryUseCaseIT {
     }
 
     @Test
-    public void givenAInvalidName_whenCallsCreateCategory_thenShouldReturnDomainException() throws ValidatorException {
+    public void givenAInvalidName_whenCallsCreateCategory_thenShouldReturnDomainException() {
         final String expectedName = null;
         final var expectedDescription = "The category most viewed";
         final var expectedIsActive = true;
@@ -92,6 +95,23 @@ public class CreateCategoryUseCaseIT {
         assertNotNull(actualCategory.getCreatedAt());
         assertNotNull(actualCategory.getUpdatedAt());
         assertNotNull(actualCategory.getDeletedAt());
+    }
+
+    @Test
+    public void givenAValidCommand_whenGatewayThrowsRandomException_shouldReturnAException() throws ValidatorException {
+        final var expectedName = "Documentary";
+        final var expectedDescription = "Is the best documentary";
+        final var expectedIsActive = true;
+        final var expectedErrorCount = 1;
+        final var expectedErrorMessage = "Gateway Error";
+
+        final var aCommand = CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsActive);
+        doThrow(new IllegalStateException(expectedErrorMessage))
+            .when(categoryGateway).create(Mockito.any());
+        final var notification = createCategoryUseCase.execute(aCommand).getLeft();
+
+        assertEquals(expectedErrorCount, notification.getErrors().size());
+        assertEquals(expectedErrorMessage, notification.firstOrError().message());
     }
 
 }
