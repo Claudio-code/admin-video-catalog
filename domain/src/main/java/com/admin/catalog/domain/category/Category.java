@@ -1,6 +1,7 @@
 package com.admin.catalog.domain.category;
 
 import com.admin.catalog.domain.AggregateRoot;
+import com.admin.catalog.domain.util.InstantUtils;
 import com.admin.catalog.domain.validation.ValidationHandler;
 import lombok.Getter;
 
@@ -50,7 +51,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
 
     public static Category newCategory(final String name, final String description, final boolean isActive) {
         final var uuid = CategoryID.unique();
-        return new Category(uuid, name, description, isActive, Instant.now());
+        return new Category(uuid, name, description, isActive, InstantUtils.now());
     }
 
     public static Category with(
@@ -107,20 +108,20 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
 
     public void deactivate() {
         if (deletedAt == null) {
-            deletedAt = Instant.now();
+            deletedAt = InstantUtils.now();
         }
         isActive = false;
-        updatedAt = Instant.now();
+        updatedAt = InstantUtils.now();
     }
 
     public void active() {
         deletedAt = null;
         isActive = true;
-        updatedAt = Instant.now();
+        updatedAt = InstantUtils.now();
     }
 
     @Override
-    public void validate(ValidationHandler handler) {
+    public void validate(final ValidationHandler handler) {
         new CategoryValidator(this, handler).validate();
     }
 
@@ -128,7 +129,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
     public Category clone() {
         try {
             return (Category) super.clone();
-        } catch (CloneNotSupportedException e) {
+        } catch (final CloneNotSupportedException e) {
             throw new AssertionError();
         }
     }
