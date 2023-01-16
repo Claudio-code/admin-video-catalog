@@ -4,6 +4,8 @@ import com.admin.catalog.application.category.create.CreateCategoryUseCase;
 import com.admin.catalog.application.category.create.DefaultCreateCategoryUseCase;
 import com.admin.catalog.application.category.delete.DefaultDeleteCategoryUseCase;
 import com.admin.catalog.application.category.delete.DeleteCategoryUseCase;
+import com.admin.catalog.application.category.retrieve.get.DefaultGetCategoryByIdUseCase;
+import com.admin.catalog.application.category.retrieve.get.GetCategoryByIdUseCase;
 import com.admin.catalog.application.category.retrieve.list.DefaultListCategoryUseCase;
 import com.admin.catalog.application.category.retrieve.list.ListCategoryUseCase;
 import com.admin.catalog.application.category.update.DefaultUpdateCategoryUseCase;
@@ -37,6 +39,11 @@ public class CategoryUseCaseConfig {
     @Bean
     public ListCategoryUseCase listCategoryUseCase() {
         return new DefaultListCategoryUseCase(categoryGateway);
+    }
+
+    @Bean
+    public GetCategoryByIdUseCase getCategoryByIdUseCase() {
+        return new DefaultGetCategoryByIdUseCase(categoryGateway);
     }
 
 }
