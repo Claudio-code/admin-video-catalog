@@ -2,6 +2,7 @@ package com.admin.catalog.application.category.create;
 
 import com.admin.catalog.application.UseCaseTest;
 import com.admin.catalog.domain.category.CategoryGateway;
+import com.admin.catalog.domain.exceptions.ValidatorException;
 import org.junit.jupiter.api.Test;
 import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
@@ -32,7 +33,7 @@ class CreateCategoryUseCaseTest extends UseCaseTest {
     }
 
     @Test
-    void givenAValidCommand_whenCallsCreateCategory_shouldReturnCategoryId() {
+    void givenAValidCommand_whenCallsCreateCategory_shouldReturnCategoryId() throws ValidatorException {
         final var expectedName = "Movies";
         final var expectedDescription = "The best movies";
         final var expectedActive = true;
@@ -57,7 +58,7 @@ class CreateCategoryUseCaseTest extends UseCaseTest {
     }
 
     @Test
-    void givenAInvalidName_whenCallsCreateCategory_thenShouldReturnDomainException() {
+    void givenAInvalidName_whenCallsCreateCategory_thenShouldReturnDomainException() throws ValidatorException {
         final String expectedName = null;
         final var expectedDescription = "The best movies";
         final var expectedActive = true;
@@ -77,7 +78,7 @@ class CreateCategoryUseCaseTest extends UseCaseTest {
     }
 
     @Test
-    void givenAValidCommandWithInactiveCategory_whenCallsCreateCategory_shouldReturnInactiveCategoryId() {
+    void givenAValidCommandWithInactiveCategory_whenCallsCreateCategory_shouldReturnInactiveCategoryId() throws ValidatorException {
         final var expectedName = "Movies";
         final var expectedDescription = "The best movies";
         final var expectedActive = false;
@@ -102,7 +103,7 @@ class CreateCategoryUseCaseTest extends UseCaseTest {
     }
 
     @Test
-    void givenAValidCommand_whenGatewayThrowsRandomException_shouldReturnException() {
+    void givenAValidCommand_whenGatewayThrowsRandomException_shouldReturnException() throws ValidatorException {
         final var expectedName = "Movies";
         final var expectedDescription = "The best movies";
         final var expectedActive = true;
