@@ -4,8 +4,8 @@ public record CreateCategoryCommand(String name, String description, boolean isA
 
     public static CreateCategoryCommand with(final String aName,
                                              final String aDescription,
-                                             final boolean aIsActive) {
-        return new CreateCategoryCommand(aName, aDescription, aIsActive);
+                                             final Boolean aIsActive) {
+        return new CreateCategoryCommand(aName, aDescription, aIsActive != null ? aIsActive : true);
     }
 
 }

@@ -4,10 +4,8 @@ import com.admin.catalog.application.category.retrieve.get.CategoryOutput;
 import com.admin.catalog.application.category.retrieve.list.CategoryListOutput;
 import com.admin.catalog.infrastructure.category.models.CategoryListResponse;
 import com.admin.catalog.infrastructure.category.models.CategoryResponse;
-import lombok.experimental.UtilityClass;
 
-@UtilityClass
-public class CategoryApiPresenter {
+public interface CategoryApiPresenter {
 
     static CategoryResponse present(final CategoryOutput categoryOutput) {
         return CategoryResponse.builder()
