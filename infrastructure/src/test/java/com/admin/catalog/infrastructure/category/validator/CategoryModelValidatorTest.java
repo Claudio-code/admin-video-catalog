@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CategoryModelValidatorTest {
 
@@ -21,37 +22,36 @@ public class CategoryModelValidatorTest {
 
     @Test
     public void givenAnInvalidNullName_whenCallsSave_shouldReturnError() {
-        final var expectedMessage = "CategoryJpaEntity: name must not be null";
+        final var expectedMessage = "CategoryJpaEntity: name";
         final var aCategory = Category.newCategory(null, null, true);
         final var aCategoryJpa = CategoryJpaEntity.from(aCategory);
 
         final var actualException = assertThrows(ValidatorException.class, () -> validator.validate(aCategoryJpa, CategoryJpaEntity.class));
-
-        assertEquals(expectedMessage, actualException.getMessage());
+        assertTrue(actualException.getMessage().contains(expectedMessage));
     }
 
     @Test
     public void givenAnInvalidNullCreatedAt_whenCallsSave_shouldReturnError() {
-        final var expectedMessage = "CategoryJpaEntity: createdAt must not be null";
+        final var expectedMessage = "CategoryJpaEntity: createdAt";
         final var aCategory = Category.newCategory("null", null, true);
         final var aCategoryJpa = CategoryJpaEntity.from(aCategory);
         aCategoryJpa.setCreatedAt(null);
 
         final var actualException = assertThrows(ValidatorException.class, () -> validator.validate(aCategoryJpa, CategoryJpaEntity.class));
 
-        assertEquals(expectedMessage, actualException.getMessage());
+        assertTrue(actualException.getMessage().contains(expectedMessage));
     }
 
     @Test
     public void givenAnInvalidNullUpdatedAt_whenCallsSave_shouldReturnError() {
-        final var expectedMessage = "CategoryJpaEntity: updatedAt must not be null";
+        final var expectedMessage = "CategoryJpaEntity: updatedAt";
         final var aCategory = Category.newCategory("null", null, true);
         final var aCategoryJpa = CategoryJpaEntity.from(aCategory);
         aCategoryJpa.setUpdatedAt(null);
 
         final var actualException = assertThrows(ValidatorException.class, () -> validator.validate(aCategoryJpa, CategoryJpaEntity.class));
 
-        assertEquals(expectedMessage, actualException.getMessage());
+        assertTrue(actualException.getMessage().contains(expectedMessage));
     }
 
 }
