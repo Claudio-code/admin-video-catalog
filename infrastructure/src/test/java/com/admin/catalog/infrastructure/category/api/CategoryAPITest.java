@@ -66,8 +66,7 @@ public class CategoryAPITest {
                 .andDo(print());
 
         response.andExpect(status().isCreated())
-                .andExpect(header().string("location", "/categories/123"))
-                .andExpect(null)
+                .andExpect(header().string("location", "/categories/123"));
     }
 
 }
