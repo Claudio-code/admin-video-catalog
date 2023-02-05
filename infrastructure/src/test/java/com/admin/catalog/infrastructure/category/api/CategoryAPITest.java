@@ -8,7 +8,9 @@ import com.admin.catalog.application.category.retrieve.get.GetCategoryByIdUseCas
 import com.admin.catalog.application.category.retrieve.list.ListCategoryUseCase;
 import com.admin.catalog.application.category.update.UpdateCategoryUseCase;
 import com.admin.catalog.domain.category.Category;
+import com.admin.catalog.domain.category.CategoryID;
 import com.admin.catalog.domain.exceptions.DomainException;
+import com.admin.catalog.domain.exceptions.NotFoundException;
 import com.admin.catalog.domain.validation.Error;
 import com.admin.catalog.domain.validation.handler.Notification;
 import com.admin.catalog.infrastructure.ControllerTest;
@@ -146,6 +148,26 @@ public class CategoryAPITest {
 
         verify(getCategoryByIdUseCase, times(1)).execute(eq(expectedId.getValue()));
     }
+
+    @Test
+    public void givenAInvalidId_whenCallGetCategory_shouldReturnNotFound() throws Exception, RuntimeException {
+        final var expectedErrorMessage = "Category with ID 123 was not found";
+        final var expectedId = CategoryID.from("123");
+
+        when(getCategoryByIdUseCase.execute(expectedId.getValue()))
+            .thenThrow(NotFoundException.with(Category.class.getSimpleName(), expectedId));
+
+        final var request = get("/categories/{id}", expectedId.getValue())
+            .contentType(APPLICATION_JSON)
+            .accept(APPLICATION_JSON);
+        final var response = mvc.perform(request)
+            .andDo(print());
+
+
+        response.andExpect(status().isNotFound())
+            .andExpect(jsonPath("$.message", equalTo(expectedErrorMessage)));
+    }
+
 
 
 }
