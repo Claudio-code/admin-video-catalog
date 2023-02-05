@@ -12,16 +12,16 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+class GlobalExceptionHandler {
 
     @ExceptionHandler(value = NotFoundException.class)
-    public ResponseEntity<?> handlerNotFoundException(final NotFoundException notFoundException) {
+    ResponseEntity<?> handlerNotFoundException(final NotFoundException notFoundException) {
         return ResponseEntity.status(NOT_FOUND)
             .body(ApiError.from(notFoundException));
     }
 
     @ExceptionHandler(value = DomainException.class)
-    public ResponseEntity<?> handlerDomainException(final DomainException domainException) {
+    ResponseEntity<?> handlerDomainException(final DomainException domainException) {
         return ResponseEntity.unprocessableEntity()
             .body(ApiError.from(domainException));
     }

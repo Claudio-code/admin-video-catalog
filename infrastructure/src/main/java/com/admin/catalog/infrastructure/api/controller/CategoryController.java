@@ -27,7 +27,7 @@ import java.util.function.Function;
 
 @RestController
 @RequiredArgsConstructor
-public class CategoryController implements CategoryApi {
+class CategoryController implements CategoryApi {
 
     private final CreateCategoryUseCase createCategoryUseCase;
     private final UpdateCategoryUseCase updateCategoryUseCase;
