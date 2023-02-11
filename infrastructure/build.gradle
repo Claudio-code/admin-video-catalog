@@ -46,6 +46,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'mysql:mysql-connector-java'
     implementation 'com.fasterxml.jackson.module:jackson-module-afterburner'
     implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.14'
@@ -59,9 +60,14 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 
+    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.flywaydb:flyway-core'
+    testImplementation 'org.flywaydb:flyway-mysql'
     testImplementation 'org.testcontainers:mysql:1.17.6'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.testcontainers:testcontainers:1.17.6'
+    testImplementation 'org.testcontainers:mysql:1.17.6'
+    testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
     testRuntimeOnly 'com.h2database:h2'
 }
 
