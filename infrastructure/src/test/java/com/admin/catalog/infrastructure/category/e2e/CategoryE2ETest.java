@@ -130,7 +130,7 @@ public class CategoryE2ETest implements MockDsl {
             .andExpect(jsonPath("$.per_page", equalTo(1)))
             .andExpect(jsonPath("$.total", equalTo(1)))
             .andExpect(jsonPath("$.items", hasSize(1)))
-            .andExpect(jsonPath("$.items[0].name", equalTo("Series")));
+            .andExpect(jsonPath("$.items[0].name", equalTo("Movies")));
     }
 
     @Test
