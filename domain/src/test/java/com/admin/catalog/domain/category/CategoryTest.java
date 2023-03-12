@@ -1,5 +1,6 @@
 package com.admin.catalog.domain.category;
 
+import com.admin.catalog.domain.UnitTest;
 import com.admin.catalog.domain.exceptions.DomainException;
 import com.admin.catalog.domain.validation.handler.ThrowsValidationHandler;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CategoryTest {
+class CategoryTest extends UnitTest {
 
     @Test
     void givenAValidParamsWhenCallNewCategoryThenInstantiateCategory() {
