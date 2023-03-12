@@ -1,4 +1,4 @@
-package com.admin.catalog.domain.category;
+package com.admin.catalog.domain.genre;
 
 import java.util.Objects;
 
@@ -9,23 +9,23 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public class CategoryID extends Identifier {
+public class GenreID extends Identifier {
 
     private final String value;
 
-    public static CategoryID unique() {
-        return CategoryID.from(uuid());
+    public static GenreID unique() {
+        return GenreID.from(uuid());
     }
 
-    public static CategoryID from(final String anId) {
-        return new CategoryID(anId);
+    public static GenreID from(final String anId) {
+        return new GenreID(anId);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        final CategoryID that = (CategoryID) o;
+        final GenreID that = (GenreID) o;
         return getValue().equals(that.getValue());
     }
 

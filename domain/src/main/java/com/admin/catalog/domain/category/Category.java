@@ -98,7 +98,6 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
     }
 
     private void changeStatus(final boolean aIsActive) {
-        this.isActive = aIsActive;
         if (aIsActive) {
             active();
             return;
@@ -120,7 +119,6 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         updatedAt = InstantUtils.now();
     }
 
-    @Override
     public void validate(final ValidationHandler handler) {
         new CategoryValidator(this, handler).validate();
     }
