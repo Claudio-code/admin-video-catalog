@@ -2,6 +2,7 @@ package com.admin.catalog.domain.genre;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.admin.catalog.domain.AggregateRoot;
@@ -12,9 +13,9 @@ import lombok.Getter;
 @Getter
 public class Genre extends AggregateRoot<GenreID> implements Cloneable {
 
-    private final String name;
+    private String name;
     private boolean isActive;
-    private final List<CategoryID> categories;
+    private List<CategoryID> categories;
     private final Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
@@ -89,6 +90,13 @@ public class Genre extends AggregateRoot<GenreID> implements Cloneable {
         } catch (final CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    public Genre update(final String name, final boolean isActive, final List<CategoryID> categories) {
+        changeStatus(isActive);
+        this.name = name;
+        this.categories = new ArrayList<>(categories != null ? categories : Collections.emptyList());
+        return this;
     }
 
     public Genre addCategory(final CategoryID aCategoryID) {
