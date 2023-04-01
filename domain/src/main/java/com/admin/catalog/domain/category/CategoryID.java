@@ -1,5 +1,6 @@
 package com.admin.catalog.domain.category;
 
+import java.util.List;
 import java.util.Objects;
 
 import com.admin.catalog.domain.Identifier;
@@ -19,6 +20,12 @@ public class CategoryID extends Identifier {
 
     public static CategoryID from(final String anId) {
         return new CategoryID(anId);
+    }
+
+    public static List<CategoryID> from(final List<String> categories) {
+        return categories.stream()
+            .map(CategoryID::from)
+            .toList();
     }
 
     @Override

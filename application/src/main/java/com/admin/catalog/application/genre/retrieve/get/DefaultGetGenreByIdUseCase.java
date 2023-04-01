@@ -7,7 +7,7 @@ import com.admin.catalog.domain.genre.GenreID;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class DefaultGetGenreByUseCase extends GetGenreByUseCase {
+public class DefaultGetGenreByIdUseCase extends GetGenreByIdUseCase {
 
     private final GenreGateway genreGateway;
 
