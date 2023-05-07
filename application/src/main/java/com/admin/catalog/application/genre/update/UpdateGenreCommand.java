@@ -1,6 +1,7 @@
 package com.admin.catalog.application.genre.update;
 
 import java.util.List;
+import java.util.Objects;
 
 public record UpdateGenreCommand(
     String id,
@@ -15,7 +16,7 @@ public record UpdateGenreCommand(
         final Boolean isActive,
         final List<String> categories
     ) {
-        final boolean active = isActive != null;
+        final boolean active = Objects.requireNonNullElse(isActive, true);
         return new UpdateGenreCommand(id, name, active, categories);
     }
 
