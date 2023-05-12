@@ -1,11 +1,8 @@
 package com.admin.catalog.infrastructure;
 
 
-import com.admin.catalog.infrastructure.configuration.ObjectMapperConfig;
-
 import org.junit.jupiter.api.Tag;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -21,7 +18,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Inherited
 @ActiveProfiles("test-integration")
 @WebMvcTest
-@Import(ObjectMapperConfig.class)
 @Tag("integrationTest")
 public @interface ControllerTest {
 
