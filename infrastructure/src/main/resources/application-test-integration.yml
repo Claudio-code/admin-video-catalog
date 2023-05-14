@@ -11,6 +11,7 @@ spring:
     username: root
     password: root
     url: jdbc:h2:mem:catalog;MODE=MYSQL;DATABASE_TO_LOWER=TRUE # É possível persistir em um arquivo alterando "mem:adm_videos_test" para "file:./.h2/dev"
+    embedded-database-connection: H2
   h2:
     console:
       enabled: true
