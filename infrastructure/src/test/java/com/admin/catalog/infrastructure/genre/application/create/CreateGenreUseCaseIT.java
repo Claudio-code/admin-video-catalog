@@ -1,4 +1,4 @@
-package com.admin.catalog.infrastructure.genre.application;
+package com.admin.catalog.infrastructure.genre.application.create;
 
 import com.admin.catalog.application.genre.create.CreateGenreCommand;
 import com.admin.catalog.application.genre.create.CreateGenreUseCase;
