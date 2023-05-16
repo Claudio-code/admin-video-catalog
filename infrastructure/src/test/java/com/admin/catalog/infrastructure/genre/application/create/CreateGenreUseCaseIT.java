@@ -6,7 +6,6 @@ import com.admin.catalog.domain.category.Category;
 import com.admin.catalog.domain.category.CategoryGateway;
 import com.admin.catalog.domain.category.CategoryID;
 import com.admin.catalog.domain.exceptions.ValidatorException;
-import com.admin.catalog.domain.genre.GenreGateway;
 import com.admin.catalog.infrastructure.IntegrationTest;
 import com.admin.catalog.infrastructure.genre.persistence.GenreRepository;
 import org.junit.jupiter.api.Test;
@@ -27,8 +26,6 @@ class CreateGenreUseCaseIT {
     private CreateGenreUseCase useCase;
     @SpyBean
     private CategoryGateway categoryGateway;
-    @SpyBean
-    private GenreGateway genreGateway;
     @Autowired
     private GenreRepository genreRepository;
 
