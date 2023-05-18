@@ -30,7 +30,7 @@ public class Genre extends AggregateRoot<GenreID> implements Cloneable {
         super(id);
         this.name = name;
         this.isActive = isActive;
-        this.categories = categories;
+        this.categories = new ArrayList<>(categories);
         this.createdAt = createdAt;
         changeStatus(isActive);
     }
@@ -47,7 +47,7 @@ public class Genre extends AggregateRoot<GenreID> implements Cloneable {
         super(id);
         this.name = name;
         this.isActive = isActive;
-        this.categories = categories;
+        this.categories = new ArrayList<>(categories);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -103,8 +103,8 @@ public class Genre extends AggregateRoot<GenreID> implements Cloneable {
         if (aCategoryID == null) {
             return this;
         }
-        this.categories.add(aCategoryID);
-        this.updatedAt = InstantUtils.now();
+        categories.add(aCategoryID);
+        updatedAt = InstantUtils.now();
         return this;
     }
 
