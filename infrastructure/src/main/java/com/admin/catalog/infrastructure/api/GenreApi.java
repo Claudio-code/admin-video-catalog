@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequestMapping(value = "genres")
@@ -32,7 +34,7 @@ public interface GenreApi {
         @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
         @ApiResponse(responseCode = "500", description = "An internal server error was thrown")
     })
-    ResponseEntity<?> create(@RequestBody final CreateGenreRequest input);
+    ResponseEntity<?> create(@Valid @RequestBody final CreateGenreRequest input);
 
     @GetMapping
     @Operation(summary = "List all genre paginated")
@@ -67,7 +69,7 @@ public interface GenreApi {
     })
     ResponseEntity<?> updatedById(
         @PathVariable(name = "id") final String id,
-        @RequestBody final UpdateGenreRequest input
+        @Valid @RequestBody final UpdateGenreRequest input
     );
 
     @DeleteMapping(value = "{id}")

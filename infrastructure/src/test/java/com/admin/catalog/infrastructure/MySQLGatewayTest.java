@@ -18,10 +18,9 @@ import java.lang.annotation.Target;
 @Inherited
 @ActiveProfiles("test-integration")
 @ComponentScan(
-    basePackages = "com.admin.catalog",
-    useDefaultFilters = false,
+    basePackages = "com.admin.catalog.infrastructure",
     includeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*MySQLGateway")
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".[MySQLGateway]")
     }
 )
 @DataJpaTest

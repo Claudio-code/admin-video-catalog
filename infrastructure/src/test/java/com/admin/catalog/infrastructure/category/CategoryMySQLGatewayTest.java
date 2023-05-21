@@ -6,11 +6,9 @@ import com.admin.catalog.domain.exceptions.ValidatorException;
 import com.admin.catalog.domain.pagination.SearchQuery;
 import com.admin.catalog.infrastructure.MySQLGatewayTest;
 import com.admin.catalog.infrastructure.category.persistence.CategoryJpaEntity;
-import com.admin.catalog.infrastructure.category.persistence.CategoryModelValidator;
 import com.admin.catalog.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @MySQLGatewayTest
-public class CategoryMySQLGatewayTest {
+class CategoryMySQLGatewayTest {
 
     @Autowired
     private CategoryMysqlGateway categoryMysqlGateway;
@@ -27,11 +25,8 @@ public class CategoryMySQLGatewayTest {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @MockBean
-    private CategoryModelValidator validator;
-
     @Test
-    public void givenAValidCategory_whenCallsCreate_shouldReturnANewCategory() throws ValidatorException {
+    void givenAValidCategory_whenCallsCreate_shouldReturnANewCategory() throws ValidatorException {
         final var expectedName = "Movies";
         final var expectedDescription = "The category";
         final var expectedIsActive = true;
@@ -63,7 +58,7 @@ public class CategoryMySQLGatewayTest {
     }
 
     @Test
-    public void givenAValidCategory_whenCallUpdate_shouldReturnCategoryUpdated() throws ValidatorException {
+    void givenAValidCategory_whenCallUpdate_shouldReturnCategoryUpdated() throws ValidatorException {
         final var expectedName = "another movie";
         final var expectedActualName = "My movie";
         final var expectedDescription = "another end of year";
@@ -109,14 +104,14 @@ public class CategoryMySQLGatewayTest {
     }
 
     @Test
-    public void givenInvalidCategoryId_whenTryDeleteIt_shouldDeleteCategory() {
+    void givenInvalidCategoryId_whenTryDeleteIt_shouldDeleteCategory() {
         assertEquals(0, categoryRepository.count());
         categoryMysqlGateway.deletedById(CategoryID.from("INVALID"));
         assertEquals(0, categoryRepository.count());
     }
 
     @Test
-    public void givenAPrePersistedCategoryAndValidCategoryId_whenTryToDeleteIt_shouldDeletedCategory() {
+    void givenAPrePersistedCategoryAndValidCategoryId_whenTryToDeleteIt_shouldDeletedCategory() {
         final var aCategory = Category.newCategory("Movie", null, true);
 
         assertEquals(0, categoryRepository.count());
@@ -127,7 +122,7 @@ public class CategoryMySQLGatewayTest {
     }
 
     @Test
-    public void givenAPrePersistedCategoryAndValidCategoryId_whenCallFindById_shouldReturnCategory() {
+    void givenAPrePersistedCategoryAndValidCategoryId_whenCallFindById_shouldReturnCategory() {
         final var expectedName = "Series";
         final var expectedDescription = "New bigger success";
         final var expectedIsActive = true;
@@ -150,7 +145,7 @@ public class CategoryMySQLGatewayTest {
     }
 
     @Test
-    public void givenValidCategoryIdNotStored_whenCallsFindById_shouldReturnEmpty() {
+    void givenValidCategoryIdNotStored_whenCallsFindById_shouldReturnEmpty() {
         assertEquals(0, categoryRepository.count());
 
         final var actualCategory = categoryMysqlGateway.findById(CategoryID.from("Invalid"));
@@ -159,7 +154,7 @@ public class CategoryMySQLGatewayTest {
     }
 
     @Test
-    public void givenPrePersistedCategories_whenCallsFindAll_shouldReturnPaginated() {
+    void givenPrePersistedCategories_whenCallsFindAll_shouldReturnPaginated() {
         final var expectedPage = 0;
         final var expectedPerPage = 1;
         final var expectedTotal = 3;
@@ -189,7 +184,7 @@ public class CategoryMySQLGatewayTest {
     }
 
     @Test
-    public void givenEmptyCategoriesTable_whenCallsFindAll_shouldEmptyPage() {
+    void givenEmptyCategoriesTable_whenCallsFindAll_shouldEmptyPage() {
         final var expectedPage = 0;
         final var expectedPerPage = 1;
         final var expectedTotal = 0;
@@ -204,7 +199,7 @@ public class CategoryMySQLGatewayTest {
     }
 
     @Test
-    public void givenFollowPagination_whenCallsFindWithPagel_shouldReturnPaginated() {
+    void givenFollowPagination_whenCallsFindWithPagel_shouldReturnPaginated() {
         var expectedPage = 0;
         final var expectedPerPage = 1;
         final var expectedTotal = 3;
@@ -266,7 +261,7 @@ public class CategoryMySQLGatewayTest {
     }
 
     @Test
-    public void givenPrePersistedCategoriesAndDocAsTerms_whenCallsFindAllAndTermsMatchCategoryName_shouldReturnPaginated() {
+    void givenPrePersistedCategoriesAndDocAsTerms_whenCallsFindAllAndTermsMatchCategoryName_shouldReturnPaginated() {
         final var expectedPage = 0;
         final var expectedPerPage = 1;
         final var expectedTotal = 1;
@@ -294,7 +289,7 @@ public class CategoryMySQLGatewayTest {
     }
 
     @Test
-    public void givenPrePersistedCategories_whenCallsExistsByIds_shouldReturnIds() {
+    void givenPrePersistedCategories_whenCallsExistsByIds_shouldReturnIds() {
         final var movies = Category.newCategory("Movies", null, true);
         final var series = Category.newCategory("Series", null, true);
         final var documentaries = Category.newCategory("Documentaries", null, true);
