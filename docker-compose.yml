@@ -24,6 +24,7 @@ services:
             - FLYWAY_DB=catalog
             - FLYWAY_USER=root
             - FLYWAY_PASS=root
+            - MYSQL_HOST=admin-video-catalog-api-mysql:3306
         ports:
             - "8080:8080"
         networks:

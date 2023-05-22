@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: adm-video-catalog
+  name: adm-video-catalog
+  namespace: adm-video
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adm-video-catalog
+  template:
+    metadata:
+      labels:
+        app: adm-video-catalog
+    spec:
+      containers:
+        - image: claudio2424/adm-video-catalog:1.2
+          imagePullPolicy: Always
+          name: adm-video-catalog
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: FLYWAY_DB
+            value: catalog
+          - name: FLYWAY_USER
+            value: root
+          - name: FLYWAY_PASS
+            value: root
+          - name: MYSQL_HOST
+            value: adm-mysql
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: adm-video-catalog
+  name: adm-video-catalog
+  namespace: adm-video
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 8080
+    nodePort: 32244
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: adm-video-catalog
+  type: NodePort
+

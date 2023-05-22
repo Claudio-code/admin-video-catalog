@@ -1,8 +1,8 @@
 mysql:
-    username: root
-    password: root
-    schema: catalog
-    url: admin-video-catalog-api-mysql:3306
+    username: ${FLYWAY_USER:root}
+    password: ${FLYWAY_PASS:root}
+    schema: ${FLYWAY_DB:catalog}
+    url: ${MYSQL_HOST}
 
 server:
     port: 8080

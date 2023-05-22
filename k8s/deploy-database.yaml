@@ -1,0 +1,100 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: adm-video
+spec:
+  finalizers:
+    - kubernetes
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: adm-mysql
+  name: adm-mysql
+  namespace: adm-video
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 3306
+    nodePort: 32222
+    protocol: TCP
+    targetPort: 3306
+  type: NodePort
+  selector:
+    app: adm-mysql
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: adm-mysql
+  name: adm-mysql
+  namespace: adm-video
+spec:
+  selector:
+    matchLabels:
+      app: adm-mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: adm-mysql
+    spec:
+      containers:
+      - image: mysql:8.0.31
+        name: adm-mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        - name: MYSQL_DATABASE
+          value: catalog
+        ports:
+        - containerPort: 3306
+          name: adm-mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv-volume
+  labels:
+    type: local
+  namespace: adm-video
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  namespace: adm-video
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+
