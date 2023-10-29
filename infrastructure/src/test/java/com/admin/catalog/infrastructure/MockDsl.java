@@ -2,10 +2,14 @@ package com.admin.catalog.infrastructure;
 
 import com.admin.catalog.domain.Identifier;
 import com.admin.catalog.domain.category.CategoryID;
+import com.admin.catalog.domain.genre.GenreID;
 import com.admin.catalog.infrastructure.category.models.CategoryResponse;
 import com.admin.catalog.infrastructure.category.models.CreateCategoryRequest;
 import com.admin.catalog.infrastructure.category.models.UpdateCategoryRequest;
 import com.admin.catalog.infrastructure.configuration.json.Json;
+import com.admin.catalog.infrastructure.genre.models.CreateGenreRequest;
+import com.admin.catalog.infrastructure.genre.models.GenreResponse;
+import com.admin.catalog.infrastructure.genre.models.UpdateGenreRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -22,6 +26,46 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public interface MockDsl {
     MockMvc mvc();
+
+    default ResultActions deleteAGenre(final GenreID aId) throws Exception {
+        return this.delete("/genres/", aId);
+    }
+
+    default GenreID givenAGenre(
+        final String aName,
+        final boolean isActive,
+        final List<CategoryID> categories
+    ) throws Exception {
+        final var aRequestBody = new CreateGenreRequest(aName, mapTo(categories, CategoryID::getValue), isActive);
+        final var actualId = this.given("/genres", aRequestBody);
+        return GenreID.from(actualId);
+    }
+
+    default ResultActions listGenres(final int page, final int perPage) throws Exception {
+        return listGenres(page, perPage, "", "", "");
+    }
+
+    default ResultActions listGenres(final int page, final int perPage, final String search) throws Exception {
+        return listGenres(page, perPage, search, "", "");
+    }
+
+    default ResultActions listGenres(
+        final int page,
+        final int perPage,
+        final String search,
+        final String sort,
+        final String direction
+    ) throws Exception {
+        return this.list("/genres", page, perPage, search, sort, direction);
+    }
+
+    default GenreResponse retrieveAGenre(final GenreID aId) throws Exception {
+        return this.retrieve("/genres/", aId, GenreResponse.class);
+    }
+
+    default ResultActions updateGenre(final GenreID aId, final UpdateGenreRequest aRequest) throws Exception {
+        return this.update("/genres/", aId, aRequest);
+    }
 
     default ResultActions deleteACategory(final CategoryID anId) throws Exception {
         return this.delete("/categories/", anId);
